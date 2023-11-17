@@ -28,6 +28,9 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   google_fonts: ^4.0.4
+  date_picker_timeline: ^1.2.5
+  firebase_core: ^2.0.0
+  cloud_firestore: ^4.0.0
   flutter:
     sdk: flutter
 
