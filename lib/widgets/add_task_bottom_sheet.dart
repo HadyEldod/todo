@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_c8/models/task_model.dart';
+import 'package:todo_c8/firebase/firebase_functions.dart';
 import 'package:todo_c8/shared/style/app_colors.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
@@ -8,10 +11,13 @@ class AddTaskBottomSheet extends StatefulWidget {
 
 class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   var formKey = GlobalKey<FormState>();
-  String selected = DateTime.now().toString().substring(0, 10);
+  var  selected = DateUtils.dateOnly(DateTime.now());
+
+var  titleController=TextEditingController();
+var  descriptionController=TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+    Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Form(
@@ -30,23 +36,28 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               height: 25,
             ),
             TextFormField(
+              style: TextStyle(color: Colors.black),
+              controller: titleController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return "please enter Title";
-                } else if (value.length < 10) {
-                  return "please enter at least 10 char";
+                } else if (value.length < 6) {
+                  return "please enter at least 6 char";
+                }
+                else if (value.length >15) {
+                  return "please enter at max 15 char";
                 }
                 return null;
               },
               textInputAction: TextInputAction.next,
               decoration: InputDecoration(
-                label: Text("Title here"),
+                label: Text("Title here",),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: AppColors.lightColor),
                   borderRadius: BorderRadius.circular(18),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.lightColor),
+                  borderSide: BorderSide(color: Colors.indigoAccent),
                   borderRadius: BorderRadius.circular(18),
                 ),
               ),
@@ -55,6 +66,8 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               height: 20,
             ),
             TextFormField(
+                style: TextStyle(color: Colors.black)     ,
+              controller: descriptionController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return "please enter Title";
@@ -69,7 +82,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                   borderRadius: BorderRadius.circular(18),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.lightColor),
+                  borderSide: BorderSide(color: Colors.indigoAccent),
                   borderRadius: BorderRadius.circular(18),
                 ),
               ),
@@ -92,7 +105,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                 chooseDate();
               },
               child: Text(
-                selected,
+                selected.toString().substring(0,10),
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge!
@@ -105,7 +118,14 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
             ElevatedButton(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
-                    print("rfjsdgi");
+                    TaskModel task =TaskModel(
+                        userId:FirebaseAuth.instance.currentUser!.uid,
+                        title: titleController.text,
+                        descreiption: descriptionController.text,
+                        date: selected.millisecondsSinceEpoch,
+                        status: false);
+                    FireBaseFunction.addTaskToFirestore(task) ;
+                      Navigator.pop(context);
                   }
                 },
                 child: Text("Add Task"))
@@ -122,7 +142,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
         firstDate: DateTime.now(),
         lastDate: DateTime.now().add(Duration(days: 365)));
     if (selectedDate != null) {
-      selected = selectedDate.toString().substring(0, 10);
+      selected =DateUtils.dateOnly(selectedDate) ;
       setState(() {});
     }
   }
