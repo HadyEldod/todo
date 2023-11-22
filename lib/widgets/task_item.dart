@@ -40,7 +40,7 @@ TaskItem(this.task);
                 height: 100,
                 width: 5,
                 decoration: BoxDecoration(
-                  color:task.status?AppColors.greenColor: AppColors.lightColor,
+                  color:task.status?Color(0xFFF67586): AppColors.lightColor,
                   borderRadius: BorderRadius.circular(4),
                 ),
                 margin: EdgeInsets.only(top: 6, bottom: 6, left: 22),
@@ -55,12 +55,13 @@ TaskItem(this.task);
                     style: Theme.of(context)
                         .textTheme
                         .bodyLarge!
-                        .copyWith(color:task.status?AppColors.greenColor: AppColors.lightColor),
+                        .copyWith(color:task.status?Color(0xFFF67586): AppColors.lightColor),
                   ),
                   Text(
                     task.descreiption,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme.of(context).textTheme.bodySmall!.
+                    copyWith(color:task.status?Color(0xFFF67586): AppColors.lightColor,fontSize: 15),
                   ),
                 ],
               ),
@@ -68,7 +69,7 @@ TaskItem(this.task);
               task.status?
                   Text("done!",style: Theme.of(context)
                       .textTheme.bodyLarge!
-                      .copyWith(color: AppColors.greenColor),)
+                      .copyWith(color:Color(0xFFF67586)),)
               :InkWell(
                 onTap: (){
                   task.status=true;

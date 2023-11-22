@@ -26,25 +26,29 @@ class _HomeLayoutState extends State<HomeLayout> {
       extendBody: true,
       appBar: AppBar(
         title: Text("Todo App for ${provider.myUser?.name}"),
-        actions: [
-          IconButton(
-            onPressed: (){
-              provider.logout();
-              Navigator.pushReplacementNamed(context, LoginScreen.routeName);
-            },
-            icon: Icon(Icons.logout),
-          )
-        ],
+       actions: [
+         IconButton(
+           onPressed: (){
+             provider.logout();
+             Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+           },
+           icon: Icon(Icons.logout),
+         )
+       ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        shape: StadiumBorder(side: BorderSide(color: Colors.white, width: 4)),
+      floatingActionButton: FloatingActionButton(backgroundColor: Color(
+          0x670479e7),
+        shape: StadiumBorder(
+            side: BorderSide(color: Colors.white, width: 4)),
         onPressed: () {
           showAddTaskSheet();
         },
         child: Icon(
           Icons.add,
           size: 30,
+          color: Colors.black87,
+
         ),
       ),
       bottomNavigationBar: BottomAppBar(
@@ -62,7 +66,7 @@ class _HomeLayoutState extends State<HomeLayout> {
           },
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.list), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.settings), label: ""),
+            BottomNavigationBarItem(icon: Icon(Icons.settings),label: "" ),
           ],
         ),
 

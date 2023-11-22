@@ -19,7 +19,7 @@ class CreateAccount extends StatelessWidget {
     var provider=Provider.of<MyProvider>(context);
     return Stack(
       children: [
-        Image.asset("assets/image/spotLight.png",width: double.infinity,
+        Image.asset("assets/image/bg_log.jpg",width: double.infinity,height: double.infinity,
           fit: BoxFit.fill,),
         Scaffold(
           resizeToAvoidBottomInset: false,
@@ -32,11 +32,14 @@ class CreateAccount extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextFormField(
+                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25,color: Colors.black87),
                     controller: nameController,
                     validator: (value){
                       return null;
                     },
                     decoration: InputDecoration(
+                      // filled: true,
+                      // fillColor: Colors.white,
                         label: Text("Name")
                         ,border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -51,6 +54,7 @@ class CreateAccount extends StatelessWidget {
                     height: 10,
                   ),
                   TextFormField(
+                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25,color: Colors.black87),
                     controller: ageController,
                     keyboardType: TextInputType.number,
                     validator: (value){
@@ -60,6 +64,8 @@ class CreateAccount extends StatelessWidget {
                       return null;
                     },
                     decoration: InputDecoration(
+                      // filled: true,
+                      // fillColor: Colors.white,
                         label: Text("Age")
                         ,border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -74,6 +80,7 @@ class CreateAccount extends StatelessWidget {
                     height: 10,
                   ),
                   TextFormField(
+                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25,color: Colors.black87),
                     controller: emailController,
                     validator: (value){
                       bool emailValid =
@@ -87,6 +94,8 @@ class CreateAccount extends StatelessWidget {
                       return null;
                     },
                     decoration: InputDecoration(
+                      // filled: true,
+                      // fillColor: Colors.white,
                         label: Text("Email Adsress")
                         ,border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -101,6 +110,8 @@ class CreateAccount extends StatelessWidget {
                     height: 10,
                   ),
                   TextFormField(
+
+                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25,color: Colors.black87),
                     controller: passwordController,
                     obscureText: true,
                     validator: (value){
@@ -112,6 +123,8 @@ class CreateAccount extends StatelessWidget {
                       return null;
                     },
                     decoration: InputDecoration(
+                      // filled: true,
+                      // fillColor: Colors.white,
                         label: Text("Password")
                         ,border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -126,13 +139,16 @@ class CreateAccount extends StatelessWidget {
                     height: 50,
                   ),
                   ElevatedButton(onPressed: (){
+
                     if(formKey.currentState!.validate()){
+                      Navigator.pushReplacementNamed(context, LoginScreen.routeName);
                       FireBaseFunction.createAccount(
-                      nameController.text,int.parse(ageController.text)
-                      ,
+                      nameController.text,int.parse(ageController.text),
                           emailController.text, passwordController.text,(){
-                        Navigator.pushReplacementNamed(context, HomeLayout.routeName);
-                      });
+
+
+                      }
+                      );
                     }
                   },
                        child: Text("   Create   ")),
@@ -148,7 +164,6 @@ class CreateAccount extends StatelessWidget {
               ),
             ),
           ),
-
         ),
       ],
     );

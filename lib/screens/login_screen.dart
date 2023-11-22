@@ -15,7 +15,7 @@ class LoginScreen extends StatelessWidget {
     var provider=Provider.of<MyProvider>(context);
     return  Stack(
       children: [
-        Image.asset("assets/image/spotLight.png",width: double.infinity,
+        Image.asset("assets/image/bg_log.jpg",width: double.infinity,height: double.infinity,
         fit: BoxFit.fill,),
         Scaffold(
           resizeToAvoidBottomInset: false,
@@ -28,6 +28,7 @@ class LoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextFormField(
+                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25,color: Colors.black87),
                     controller: emailController,
                     validator: (value){
                       bool emailValid =
@@ -41,6 +42,8 @@ class LoginScreen extends StatelessWidget {
                       return null;
                     },
                     decoration: InputDecoration(
+                      // filled: true,
+                      // fillColor: Colors.white,
                         label: Text("Email Adsress")
                         ,border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -55,6 +58,8 @@ class LoginScreen extends StatelessWidget {
                     height: 20,
                   ),
                   TextFormField(
+
+                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25,color: Colors.black87),
                     controller: passwordController,
                     obscureText: true,
                     validator: (value){
@@ -66,6 +71,8 @@ class LoginScreen extends StatelessWidget {
                       return null;
                     },
                     decoration: InputDecoration(
+                      // filled: true,
+                      // fillColor: Colors.white,
                         label: Text("Password")
                         ,border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -103,7 +110,7 @@ class LoginScreen extends StatelessWidget {
                           }
                           );
                     }
-                  }, child: Text("   Login   ")),
+                  }, child: Text("   Login   "),),
                   SizedBox(
                     height: 100,
                   ),

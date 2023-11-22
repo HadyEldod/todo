@@ -109,13 +109,15 @@ var  descriptionController=TextEditingController();
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge!
-                    .copyWith(color: AppColors.lightColor),
+                    .copyWith(color:Colors.lightBlueAccent),
               ),
             ),
             SizedBox(
               height: 20,
             ),
             ElevatedButton(
+style: ElevatedButton.styleFrom(
+    primary: Colors.lightBlueAccent),
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     TaskModel task =TaskModel(
@@ -128,7 +130,10 @@ var  descriptionController=TextEditingController();
                       Navigator.pop(context);
                   }
                 },
-                child: Text("Add Task"))
+                child: Text("Add Task",
+                  style: TextStyle(
+                      color: Colors.black87,
+                    fontWeight: FontWeight.bold,fontSize: 25),),)
           ],
         ),
       ),
